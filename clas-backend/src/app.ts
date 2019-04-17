@@ -1,25 +1,34 @@
 import express from 'express';
 import bodyParser from 'body-parser';
+
+import SequelizeDB from './config/sequelize'
  
 class App {
+  private connection: any;
   public app: express.Application;
   public port: number;
  
-  constructor(controllers, port: number) {
+  constructor(routers: express.Router[], port: number) {
     this.app = express();
     this.port = port;
+    
  
+    this.initializeDatabase();
     this.initializeMiddlewares();
-    this.initializeControllers(controllers);
+    this.initializeControllers(routers);
+  }
+  
+  private initializeDatabase() {
+     (new SequelizeDB()).initializeDB();
   }
   
   private initializeMiddlewares() {
     this.app.use(bodyParser.json());
   }
  
-  private initializeControllers(controllers) {
-    controllers.forEach((controller) => {
-      this.app.use('/api', controller.router);
+  private initializeControllers(routers: express.Router[]) {
+    routers.forEach((router) => {
+      this.app.use('/api', router);
     });
   }
  
