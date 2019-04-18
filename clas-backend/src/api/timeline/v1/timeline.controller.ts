@@ -11,7 +11,7 @@ class TimelineController {
     public get = async (request: express.Request, response: express.Response) => {
         try {
             const timelines: Timeline[] = await this.TimelineService.getTimeline();
-            response.send(timelines);
+            return response.json(timelines);
         } catch(e) {
             console.log(e);
         }
@@ -23,7 +23,7 @@ class TimelineController {
                 "content": "abcdef"
             };
             const newTimeline = await this.TimelineService.postTimeline(bodyTimeline);
-            response.send(newTimeline);
+            return response.json(newTimeline);
 
         } catch(e) {
             console.log(e);
