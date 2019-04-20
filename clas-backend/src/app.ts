@@ -4,22 +4,23 @@ import bodyParser from 'body-parser';
 import SequelizeDB from './config/sequelize'
  
 class App {
-  private connection: any;
+  public sequelizeInstance: any;
   public app: express.Application;
   public port: number;
  
   constructor(routers: express.Router[], port: number) {
     this.app = express();
     this.port = port;
+
     
- 
     this.initializeDatabase();
     this.initializeMiddlewares();
     this.initializeControllers(routers);
   }
   
   private initializeDatabase() {
-     (new SequelizeDB()).initializeDB();
+    const sequelizeDB = new SequelizeDB();
+    this.sequelizeInstance = sequelizeDB.getSequelizeInstance();
   }
   
   private initializeMiddlewares() {
@@ -36,6 +37,10 @@ class App {
     this.app.listen(this.port, () => {
       console.log(`App listening on the port ${this.port}`);
     });
+  }
+  
+  public getAppInstance() {
+    return this.app;
   }
 }
  

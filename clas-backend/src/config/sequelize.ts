@@ -27,7 +27,7 @@ const baseDBSetting = {
 
 const dbConfig: any = {
     test: Object.assign({
-        database: process.env.DB_TEST,
+        database: process.env.DB_DEV,
         logging: false,
     }, baseDBSetting),
     development: Object.assign({
@@ -41,10 +41,23 @@ const dbConfig: any = {
 };
 
 class SequelizeDB {
-    public async initializeDB() {
-        const sequelize = new Sequelize(dbConfig[env]);
-        await sequelize.sync({force: true})
+    // 여기서 데이터베이스 객체를 꺼내야된다. 
+    
+    public sequelize: Sequelize;
+    
+    constructor() {
+        this.sequelize =  new Sequelize(dbConfig[env]);
+        this.sequelize.sync();
     }
+    
+    // public async initializeDB() {
+    //     await this.sequelize.sync({force: true})
+    // }
+    
+    public getSequelizeInstance() {
+        return this.sequelize;
+    }
+    
 }
 
 export default SequelizeDB;

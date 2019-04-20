@@ -4,7 +4,8 @@
   "description": "",
   "scripts": {
     "dev": "ts-node-dev --respawn --transpileOnly ./src/server.ts",
-    "prod": "tsc && node ./build/app.js"
+    "prod": "tsc && node ./build/app.js",
+    "test": "jest"
   },
   "author": "",
   "license": "ISC",

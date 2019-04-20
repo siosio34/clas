@@ -1,14 +1,27 @@
 import Timeline from './timeline.model';
-import { PostTimelineDto } from './dto';
+import { PostTimelineDto, PutTimelineDto } from './dto';
 
 class TimelineService {
     
-    public getTimeline = async () => {
+    public get = async () => {
         return await Timeline.findAll();
     }
 
-    public postTimeline = async (newTimeline: PostTimelineDto) => {
+    public post = async (newTimeline: PostTimelineDto) => {
         return await Timeline.create(newTimeline);
+    }
+    
+    public put = async (updatedTimeline: PutTimelineDto) => {
+        return await Timeline.update(
+            { content: updatedTimeline.content },
+            { where: { id: updatedTimeline.id }}
+        )
+    }
+    
+    public delete = async (id: number) => {
+        return await Timeline.destroy(
+            { where: { id: id }}
+        );
     }
     
 }
