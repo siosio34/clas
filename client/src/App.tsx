@@ -1,9 +1,12 @@
 import React from 'react';
+import routes from './routes'
 
 const App: React.FC = () => {
   return (
-    <div>Initial Project</div>
-  );
+    <>
+      { routes }
+    </>
+  )
 }
 
 export default App;
