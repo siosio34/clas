@@ -1,5 +1,9 @@
 {
   "compilerOptions": {
+    "baseUrl": ".",
+    "paths": {
+      "@/*":["src/*"]
+    },
     "target": "es5",
     "lib": [
       "dom",
@@ -23,3 +27,5 @@
     "src"
   ]
 }
+
+// https://github.com/facebook/create-react-app/issues/5645
