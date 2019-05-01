@@ -1,8 +1,25 @@
-// Render Prop
 import React from 'react';
 import { Formik, FormikActions, Form, Field, FieldProps, ErrorMessage } from 'formik';
 import * as Yup from 'yup';
 import { Input, Button } from 'antd';
+
+import styled from 'styled-components';
+
+const LoginContainer = styled.div`
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 100vh;
+  background: #f2f2f2;
+`
+
+const LoginCard = styled.div`
+  display: flex;
+  min-width: 300px;
+  max-width: 300px;
+  flex-direction: row;
+  background: #ffffff;
+`
 
 type LoginFormValues = {
   username: string;
@@ -15,7 +32,7 @@ const LoginSchema = Yup.object().shape({
 })
 
 const Login = () => (
-  <>
+  <LoginContainer>
     <Formik
       initialValues={{ username: '', password: '' }}
       validationSchema={LoginSchema}
@@ -23,31 +40,44 @@ const Login = () => (
         actions.setSubmitting(false);
       }}
     >
-      {({ errors, touched, isSubmitting }) => (
+      {() => (
+      <LoginCard>
         <Form>
           <Field 
             name="username"
             render={({ field, form }: FieldProps<LoginFormValues>) => (
-              <div>
-                  <Input type="text" {...field} placeholder="아이디" />
-                  <ErrorMessage name="username"/>
-                </div>
+              <>
+                  <label>아이디</label>
+                  <Input type="text" {...field} placeholder="아이디를 입력해주세요" />
+                   <ErrorMessage name="username">
+            {(msg /** this is the same as the above */) => (
+              <div>{msg}</div>
+            )}
+          </ErrorMessage>
+                </>
             )} />
           <Field 
             name="password"
             render={({ field, form }: FieldProps<LoginFormValues>) => (
-              <div>
-                  <Input type="password" {...field} placeholder="비밀번호" />
-                  <ErrorMessage name="password"/>
-               </div>
+              <>
+                  <label>비밀번호</label>
+                  <Input type="password" {...field} placeholder="비밀번호를 입력해주세요" />
+                   <ErrorMessage name="password">
+            {(msg /** this is the same as the above */) => (
+              <div>{msg}</div>
+            )}
+          </ErrorMessage>
+               </>
             )} />
-          <Button htmlType="submit" disabled={isSubmitting}>
-            Submit
+          <Button style={{ width: "100%" }} type="primary" htmlType="submit">
+            로그인하기
           </Button>
         </Form>
+        </LoginCard>
       )}
     </Formik>
-  </>
+  </LoginContainer>
+
 );
 
 export default Login;
