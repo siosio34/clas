@@ -2,6 +2,7 @@
 import React from 'react';
 import { Formik, FormikActions, Form, Field, FieldProps, ErrorMessage } from 'formik';
 import * as Yup from 'yup';
+import { Input, Button } from 'antd';
 
 type LoginFormValues = {
   username: string;
@@ -28,7 +29,7 @@ const Login = () => (
             name="username"
             render={({ field, form }: FieldProps<LoginFormValues>) => (
               <div>
-                  <input type="text" {...field} placeholder="아이디" />
+                  <Input type="text" {...field} placeholder="아이디" />
                   <ErrorMessage name="username"/>
                 </div>
             )} />
@@ -36,13 +37,13 @@ const Login = () => (
             name="password"
             render={({ field, form }: FieldProps<LoginFormValues>) => (
               <div>
-                  <input type="password" {...field} placeholder="비밀번호" />
+                  <Input type="password" {...field} placeholder="비밀번호" />
                   <ErrorMessage name="password"/>
                </div>
             )} />
-          <button type="submit" disabled={isSubmitting}>
+          <Button htmlType="submit" disabled={isSubmitting}>
             Submit
-          </button>
+          </Button>
         </Form>
       )}
     </Formik>
